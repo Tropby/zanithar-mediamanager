@@ -1,0 +1,12 @@
+Module Mediamanager: @high
+    ☐ select files (TinyMCE)
+    ✔ autoupload files (CKEditor) @done(21-09-20 15:15)
+    ✔ use folder / file icons @done(21-10-17 11:47)
+    ☐ upload to subfolder
+    ✔ strip ".." and "." from the file path @done(21-09-20 15:15)
+    ✔ delete files @done(21-09-20 15:15)
+    ☐ Drag/Drop files
+    ☐ move files
+    ☐ Scale images (crazy loading)
+    ☐ Upload multible files 
+    ☐ Thumbnail generation

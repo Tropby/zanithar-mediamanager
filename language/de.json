@@ -1,0 +1,17 @@
+{
+    "public" :{
+        "core" : {            
+        }
+    },
+    "admin" :{
+        "navi" : {
+            "modulename" : "Medien Browser",
+            "action_show" : "anzeigen"
+        },
+        "show" : {
+            "show" : "Medien Browser",
+            "filename" : "Dateiauswahl",
+            "upload" : "hochladen"
+        }
+    }
+}

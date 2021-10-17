@@ -1,0 +1,144 @@
+{if STANDALONE}
+<!DOCTYPE HTML>
+<html>
+
+    <head>
+        <title>{PAGE_NAME} {LANG("CORE.ADMINISTRATION")}</title>
+        <link rel="stylesheet" href="{DESIGN_DIR}{DESIGN}" />
+        <script src="{ROOT}{DESIGN_DIR}/lib/tinymce/tinymce.min.js"></script>
+    </head>
+
+    <body>
+        <div class="admin-base">
+            <div class="row">
+                <div class="box-12">
+                    {/if}
+
+                    <h1>
+                        {LANG("MEDIAMANAGER.SHOW")}
+                    </h1>
+
+                    <div class="row">
+                        <div class="box-12">
+                            <a href="{MAIN_Link('mediamanager', 'show', 'path', '' )}">Root</a>
+                            {PATH=""}
+                            {list PATH_LIST}
+                            {PATH . "/"}
+                            {PATH . PATH_LIST.NAME}
+                            / <a href="{MAIN_Link('mediamanager', 'show', 'path', PATH )}">{PATH_LIST.NAME}</a>
+                            {/list}
+                        </div>
+                        <div class="box-2">
+                            {list DIR_LIST}
+                            {FILE = CURRENT_PATH}
+                            {FILE . DIR_LIST.NAME}
+                            <span class="folderIcon"></span> <a
+                                href="{MAIN_Link('mediamanager', 'show', 'path', FILE )}">{DIR_LIST.NAME}</a><br />
+                            {/list}
+                        </div>
+                        <div class="box-10">
+                            <div class="table">
+                                {list FILE_LIST}
+                                <div class="hover">
+                                    <div>
+                                        <!-- TODO: override folder icon with extention icon -->
+                                        {MEDIAMANAGER_Icon(FILE_LIST.EXTENTION)}
+
+                                        {if STANDALONE}
+                                            <a href="#" onclick="useFile('{CURRENT_PATH}', '{FILE_LIST.NAME}');">{FILE_LIST.NAME}</a>
+                                        {else}
+                                            <a href="index.php?module=mediamanager&action=file&filename={FILE_LIST.DIRECTORY}/{FILE_LIST.NAME}">{FILE_LIST.NAME}</a>
+                                        {/if}
+                                        <br />
+                                    </div>
+                                    <div class="right">
+                                        {MEDIAMANAGER_FILESIZE(FILE_LIST.SIZE)}
+                                    </div>
+                                    <div>
+                                        <a class="editButton"
+                                            href="{MAIN_Link('mediamanager', 'rename', 'path', CURRENT_PATH, 'filename', FILE_LIST.NAME)}"></a>
+                                        <a class="delButton"
+                                            href="{MAIN_Link('mediamanager', 'del', 'path', CURRENT_PATH, 'filename', FILE_LIST.NAME)}"></a>
+                                    </div>
+                                </div>
+                                {/list}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="box-12">
+                            <div class="input">
+                                <label for="fileUpload">{LANG('mediamanager.filename')}</label>
+                                <input name="fileUpload" id="fileUpload" type="file" />
+                            </div>
+                            <div class="input">
+                                <button onclick="uploadFile()">{LANG('mediamanager.upload')}</button>
+                            </div>
+
+                            <div class="input">
+                                <progress value="0" max="100" id="progress">0 %</progress>
+                                <span id="uploadState"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <script>
+                        function uploadFile() {
+                            let file = document.getElementById("fileUpload").files[0];  // file from input
+                            let req = new XMLHttpRequest();
+                            let formData = new FormData();
+
+                            req.upload.onprogress = function (e) {
+                                var p = Math.round(100 / e.total * e.loaded);
+                                console.log(p, "Prozent");
+                                document.getElementById("progress").value = p;
+                                document.getElementById("progress").innerHTML = p + "%";
+                                document.getElementById("uploadState").innerHTML = p + " %"
+                            };
+
+                            req.upload.onload = function (e) {
+                                console.log("UPLOAD FINISHED!");
+                            };
+
+                            req.onload = function (e) {
+                                if (req.readyState == 4) {
+                                    let json = JSON.parse(req.responseText);
+                                    if (req.status == 200) {
+                                        console.log(json);
+                                        document.getElementById("uploadState").innerHTML = "Upload finished!";
+                                        window.setTimeout(() => { location.reload(); }, 1000);
+                                    }
+                                    else {
+                                        // Error uploading file!
+                                        console.log(json);
+                                        document.getElementById("uploadState").innerHTML = "Error uploading [" + json.message + "]";
+                                    }
+                                }
+                            }
+
+                            formData.append("fileUpload", file);
+                            req.open("POST", "{MAIN_Link('mediamanager', 'upload', 'path', CURRENT_PATH)}");
+                            req.send(formData);
+                        }
+
+                        function useFile( currentPath, filename )
+                        {
+                            if(window.top === null )
+                            {
+                                alert("Can not find editor!");
+                                return;
+                            }
+                            window.top.useFile(currentPath, filename);
+                            window.top.hideOverlayFrame();
+                        }
+                    </script>
+
+                    {if STANDALONE}
+                </div>
+            </div>
+        </div>
+    </body>
+
+</html>
+{/if}
