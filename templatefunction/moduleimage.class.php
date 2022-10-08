@@ -8,6 +8,6 @@ class Moduleimage extends \apexx\modules\core\IFunction
     {
         $module = $parameters[0];
         $filename = $parameters[1];
-        echo "?module=mediamanager&action=file&moduleImage=".$module."&filename=".$filename;
+        echo $this->module()->core()->configuration()->get("root_directory")."media/modules/".$module."/".$filename;
     }
 }
