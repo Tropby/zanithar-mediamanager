@@ -21,6 +21,8 @@ class Module extends \apexx\modules\core\IModule
 
         $this->registerTemplateFunction("filesize");
         $this->registerTemplateFunction("icon");
+        $this->registerTemplateFunction("moduleImage");
+        $this->registerTemplateFunction("file");        
         
         $this->registerAction("file", EXECUTION_TYPE::PUBLIC);
         $this->registerAction("icon", EXECUTION_TYPE::PUBLIC);
