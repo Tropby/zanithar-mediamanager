@@ -11,8 +11,8 @@ class Show extends \apexx\modules\core\IAction
             $path = $this->module()->core()->param()->get("path");
         $path = \apexx\modules\core\Path::clean($path);
 
-        $this->assign("FILE_LIST", $this->listFiles($this->module()->core()->path()->basedir() . "uploads/" . $path, $path));
-        $this->assign("DIR_LIST", $this->listDirectories($this->module()->core()->path()->basedir() . "uploads/" . $path, $path));
+        $this->assign("FILE_LIST", $this->listFiles("uploads/" . $path, $path));
+        $this->assign("DIR_LIST", $this->listDirectories("uploads/" . $path, $path));
         $this->assign("CURRENT_PATH", $path);
 
         $pathList = [];

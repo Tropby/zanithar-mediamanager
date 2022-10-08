@@ -47,7 +47,9 @@
                                         {if STANDALONE}
                                             <a href="#" onclick="useFile('{CURRENT_PATH}', '{FILE_LIST.NAME}');">{FILE_LIST.NAME}</a>
                                         {else}
-                                            <a href="index.php?module=mediamanager&action=file&filename={FILE_LIST.DIRECTORY}/{FILE_LIST.NAME}">{FILE_LIST.NAME}</a>
+                                            {FN=FILE_LIST.DIRECTORY}                                            
+                                            {FN . FILE_LIST.NAME}
+                                            <a href="{MEDIAMANAGER_File(FN)}">{FILE_LIST.NAME}</a>
                                         {/if}
                                         <br />
                                     </div>

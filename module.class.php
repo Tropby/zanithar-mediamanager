@@ -31,4 +31,12 @@ class Module extends \apexx\modules\core\IModule
     public function startup() : void
     {
     }
+
+    public function htaccess(): array
+    {
+        return [
+            "RewriteRule ^media/(.*)$ index.php?module=mediamanager&action=file&filename=$1 [L]"
+        ];
+    }    
+    
 }
