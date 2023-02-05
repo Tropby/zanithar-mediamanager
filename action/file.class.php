@@ -53,10 +53,11 @@ class File extends \apexx\modules\core\IAction
 
             header("content-type: ". mime_content_type($filename));
             header("content-length: ". filesize($filename));
+            header('pragma: public');
+            header('cache-control: max-age=86400');
+            header('expires: ' . gmdate('D, d M Y H:i:s \G\M\T', time() + 86400));
 
-            $handle = fopen($filename, "rb");
-            echo stream_get_contents($handle);
-            fclose($handle);
+            echo file_get_contents($filename);
             exit;
         }
         else
