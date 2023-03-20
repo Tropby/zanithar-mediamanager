@@ -20,20 +20,21 @@
 
                     <div class="row">
                         <div class="box-12">
-                            <a href="{MAIN_Link('mediamanager', 'show', 'path', '' )}">Root</a>
+                            <a href="{MAIN_Link('mediamanager', 'show', 'path', '/', 'adminMenu', STANDALONE )}">Root</a>
                             {PATH=""}
                             {list PATH_LIST}
                             {PATH . "/"}
                             {PATH . PATH_LIST.NAME}
-                            / <a href="{MAIN_Link('mediamanager', 'show', 'path', PATH )}">{PATH_LIST.NAME}</a>
+                            / <a href="{MAIN_Link('mediamanager', 'show', 'path', PATH, 'adminMenu', STANDALONE )}">{PATH_LIST.NAME}</a>
                             {/list}
                         </div>
                         <div class="box-2">
                             {list DIR_LIST}
                             {FILE = CURRENT_PATH}
+                            {FILE . "/"}
                             {FILE . DIR_LIST.NAME}
                             <span class="folderIcon"></span> <a
-                                href="{MAIN_Link('mediamanager', 'show', 'path', FILE )}">{DIR_LIST.NAME}</a><br />
+                                href="{MAIN_Link('mediamanager', 'show', 'path', FILE, 'adminMenu', STANDALONE )}">{DIR_LIST.NAME}</a><br />
                             {/list}
                         </div>
                         <div class="box-10">
@@ -48,6 +49,7 @@
                                             <a href="#" onclick="useFile('{CURRENT_PATH}', '{FILE_LIST.NAME}');">{FILE_LIST.NAME}</a>
                                         {else}
                                             {FN=FILE_LIST.DIRECTORY}                                            
+                                            {FN . "/"}
                                             {FN . FILE_LIST.NAME}
                                             <a href="{MEDIAMANAGER_File(FN)}">{FILE_LIST.NAME}</a>
                                         {/if}

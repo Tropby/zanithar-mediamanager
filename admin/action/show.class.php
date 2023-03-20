@@ -24,7 +24,7 @@ class Show extends \apexx\modules\core\IAction
         }
         $this->assign("PATH_LIST", $pathList);
 
-        if( $this->module()->core()->param()->getIf("adminMenu") )
+        if( $this->module()->core()->param()->getIf("adminMenu") && $this->module()->core()->param()->getInt("adminMenu") )
         {
             // Clean the output buffer and send the requested file
             ob_end_clean();
