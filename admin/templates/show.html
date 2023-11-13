@@ -89,7 +89,7 @@
 
                     <script>
                         function uploadFile() {
-                            let file = document.getElementById("fileUpload").files[0];  // file from input
+                            let file = document.getElementById("fileUpload").files[0];  /* file from input */
                             let req = new XMLHttpRequest();
                             let formData = new FormData();
 
@@ -114,12 +114,12 @@
                                         window.setTimeout(() => { location.reload(); }, 1000);
                                     }
                                     else {
-                                        // Error uploading file!
+                                        /* Error uploading file! */
                                         console.log(json);
                                         document.getElementById("uploadState").innerHTML = "Error uploading [" + json.message + "]";
                                     }
                                 }
-                            }
+                            };
 
                             formData.append("fileUpload", file);
                             req.open("POST", "{MAIN_Link('mediamanager', 'upload', 'path', CURRENT_PATH)}");
