@@ -1,7 +1,6 @@
 {if STANDALONE}
 <!DOCTYPE HTML>
-<html>
-
+<html lang="DE-DE">
     <head>
         <title>{PAGE_NAME} {LANG("CORE.ADMINISTRATION")}</title>
         <link rel="stylesheet" href="{DESIGN_DIR}{DESIGN}" />
@@ -20,7 +19,7 @@
 
                     <div class="row">
                         <div class="box-12">
-                            <a href="{MAIN_Link('mediamanager', 'show', 'path', '/', 'adminMenu', STANDALONE )}">Root</a>
+                            <a href="{MAIN_Link('mediamanager', 'show', 'path', '/', 'adminMenu', STANDALONE )}">Home</a>
                             {PATH=""}
                             {list PATH_LIST}
                             {PATH . "/"}
@@ -30,11 +29,11 @@
                         </div>
                         <div class="box-2">
                             {list DIR_LIST}
-                            {FILE = CURRENT_PATH}
-                            {FILE . "/"}
-                            {FILE . DIR_LIST.NAME}
-                            <span class="folderIcon"></span> <a
-                                href="{MAIN_Link('mediamanager', 'show', 'path', FILE, 'adminMenu', STANDALONE )}">{DIR_LIST.NAME}</a><br />
+                                {FILE = CURRENT_PATH}
+                                {FILE . "/"}
+                                {FILE . DIR_LIST.NAME}
+                                <span class="folderIcon"></span>&nbsp;<a
+                                    href="{MAIN_Link('mediamanager', 'show', 'path', FILE, 'adminMenu', STANDALONE )}">{DIR_LIST.NAME}</a><br />
                             {/list}
                         </div>
                         <div class="box-10">
@@ -42,16 +41,16 @@
                                 {list FILE_LIST}
                                 <div class="hover">
                                     <div>
-                                        <!-- TODO: override folder icon with extention icon -->
                                         {MEDIAMANAGER_Icon(FILE_LIST.EXTENTION)}
+                                        &nbsp;
 
                                         {if STANDALONE}
                                             <a href="#" onclick="useFile('{CURRENT_PATH}', '{FILE_LIST.NAME}');">{FILE_LIST.NAME}</a>
                                         {else}
-                                            {FN=FILE_LIST.DIRECTORY}                                            
+                                            {FN=FILE_LIST.DIRECTORY}
                                             {FN . "/"}
                                             {FN . FILE_LIST.NAME}
-                                            <a href="{MEDIAMANAGER_File(FN)}">{FILE_LIST.NAME}</a>
+                                            <a href="{MEDIAMANAGER_File(FN)}" target="_blank">{FILE_LIST.NAME}</a>
                                         {/if}
                                         <br />
                                     </div>
@@ -70,7 +69,7 @@
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row" style="margin-top: 20px;">
                         <div class="box-12">
                             <div class="input">
                                 <label for="fileUpload">{LANG('mediamanager.filename')}</label>

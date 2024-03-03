@@ -10,6 +10,11 @@ class Upload extends \apexx\modules\core\IAction
     {
         $path = $this->module()->core()->param()->get("path");
         $file = $this->module()->core()->param()->file("fileUpload");
+        if($this->module()->core()->param()->getIf("suneditor"))
+        {
+            // SunEditor file upload
+            $file = $this->module()->core()->param()->file("file-0");
+        }
 
         $path = \apexx\modules\core\Path::clean($path);
         
@@ -28,13 +33,28 @@ class Upload extends \apexx\modules\core\IAction
             mkdir( $this->module()->core()->path()->basedir() . "uploads/".$path, 0777, true );
         }
 
-        if (move_uploaded_file($file["tmp_name"], 
-            $this->module()->core()->path()->basedir() . "uploads/".$path . "/" . basename($file["name"])))
+        $fullFilePath= $this->module()->core()->path()->basedir() . "uploads/".$path . "/" . basename($file["name"]);
+        if (move_uploaded_file($file["tmp_name"], $fullFilePath) )
         {
-            $result->message = "upload okay!";
-            $result->reloadUrl = "?";
-            $result->url = "index.php?module=mediamanager&action=file&filename=" . $path . "/" . basename($file["name"]);
-            die(json_encode($result));
+            if( $this->module()->core()->param()->getIf("suneditor") )
+            {
+                $result->result = [];
+                $result->result[] = new stdClass();
+                $result->errorMessage = "";
+                $result->result[0]->name = basename($file["name"]);
+                $result->result[0]->size = filesize($fullFilePath);
+                $result->result[0]->url = "index.php?module=mediamanager&action=file&filename=" .
+                    $path . "/" . basename($file["name"]);
+                die(json_encode($result));
+            }
+            else
+            {
+                $result->message = "upload okay!";
+                $result->reloadUrl = "?";
+                $result->url = "index.php?module=mediamanager&action=file&filename=" .
+                    $path . "/" . basename($file["name"]);
+                die(json_encode($result));
+            }
         }
         else
         {
