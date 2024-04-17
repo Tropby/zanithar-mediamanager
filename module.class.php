@@ -36,10 +36,10 @@ class Module extends \apexx\modules\core\IModule
     public function htaccess(): array
     {
         return [
-            "RewriteRule ^media/modules/(.*)/(.*)$ index.php?module=mediamanager&action=file&moduleImage=$1&filename=$2 [L]",
+            "RewriteRule ^media/modules/([^/]*)/(.*)$ index.php?module=mediamanager&action=file&moduleImage=$1&filename=$2 [L]",
             "RewriteRule ^media/(.*)$ index.php?module=mediamanager&action=file&filename=$1 [L]",
-            "RewriteRule ^(.*)/media/(.*)$ index.php?module=mediamanager&action=file&filename=$2 [L]"            
+            "RewriteRule ^(.*)/media/(.*)$ index.php?module=mediamanager&action=file&filename=$2 [L]"
         ];
-    }    
+    }
     
 }
