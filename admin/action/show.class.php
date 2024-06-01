@@ -28,7 +28,7 @@ class Show extends \apexx\modules\core\IAction
         {
             // Clean the output buffer and send the requested file
             ob_end_clean();
-            $this->assign("STANDALONE", true);            
+            $this->assign("STANDALONE", true);
             $this->render("show");
             die();
         }
