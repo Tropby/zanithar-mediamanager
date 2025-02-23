@@ -11,7 +11,11 @@ class Module extends \apexx\modules\core\IModule
         parent::__construct(
             $core,
             "mediamanager",
-            "2.0.0"
+            "2.0.0",
+            [
+                "core" => "2.0.0",
+                "main" => "2.0.0"
+            ]
         );
 
         // Register all template functions
